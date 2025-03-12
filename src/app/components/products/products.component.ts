@@ -61,4 +61,10 @@ export class ProductsComponent implements OnInit {
   trackById(index: number, product: any): number {
     return product.id;
   }
+  handleAddToCart(event: MouseEvent, product: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.cartService.addToCart(product);
+  }
+  
 }

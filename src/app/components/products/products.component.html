@@ -2,11 +2,12 @@
 <div class="products-container">
   <a [routerLink]="['/products', product.id]" *ngFor="let product of filteredProducts; trackBy: trackById" class="product-wrapper">
     <img
-      class="image-add-cart"
-      src="/assets/add-cart.svg"
-      alt="icon add cart"
-      (click)="addToCart(product)"
-    >
+    class="image-add-cart"
+    src="/assets/add-cart.svg"
+    alt="icon add cart"
+    (click)="handleAddToCart($event, product)"
+  >
+  
     <div *ngIf="getProductCount(product.id) > 0" class="cart-counter">
       {{ getProductCount(product.id) }}
     </div>
