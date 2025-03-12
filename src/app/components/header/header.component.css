@@ -1,19 +1,28 @@
-.container-header{
+.container-header h1 a {
+    color: inherit; 
+    text-decoration: none;
+    display: inline-block;
+}
+
+.container-header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     font-family: "Kufam", sans-serif;
-    border-bottom: 0.1px solid #f4efca  ;
+    border-bottom: 0.1px solid #f4efca;
     gap: 10px;
 }
-.container-header h1{
+
+.container-header h1 {
     font-size: 2rem;
-    color: #fbb607 ;
+    color: #fbb607;
     cursor: pointer;
 }
-.second-title-part{
-    color: #04acab  ;
+
+.second-title-part {
+    color: #04acab;
 }
+
 .image-cart {
     width: 10vw;
     max-width: 3rem;
@@ -21,8 +30,9 @@
     height: auto;
     cursor: pointer;
 }
-@media (max-width: 500px){
-    .container-header h1{
+
+@media (max-width: 500px) {
+    .container-header h1 {
         font-size: 1.2rem;
     }
 }

@@ -26,4 +26,11 @@ export class CartComponent implements OnInit {
   clearCart() {
     this.cartService.clearCart();
   }
+  get totalProducts(): number {
+    return this.cartItems.length;
+  }
+
+  get totalPrice(): number {
+    return this.cartItems.reduce((acc, item) => acc + item.price, 0);
+  }
 }
