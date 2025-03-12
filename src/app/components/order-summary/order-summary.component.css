@@ -1,0 +1,116 @@
+
+.order-summary {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    height: 24rem;
+    max-width: 20rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.order-summary h3 {
+    font-size: 1.3rem;
+    border-bottom: 0.1px solid rgb(165, 165, 165);
+    padding-bottom: 0.3rem;
+}
+
+.order-summary p {
+    justify-content: space-between;
+    display: flex;
+    color: gray;
+    font-size: 1rem;
+    border-bottom: 0.1px solid rgb(165, 165, 165);
+    padding: 0.3rem;
+}
+
+.order-summary span {
+    color: #000000;
+}
+
+.boton-checkout {
+    background-color: #36ac84;
+    color: rgb(236, 236, 236);
+    border: none;
+    border-radius: 4px;
+    width: 18rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.container-button-checkout {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.boton-checkout:hover {
+    background-color: #2f9674;
+    color: white;
+}
+.payment-method-toggle {
+    display: flex;
+    border-bottom: 0.1px solid rgb(165, 165, 165);
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.payment-method-toggle:hover {
+    background-color: #cccccc;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+.payment-modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+  }
+@media (max-width: 480px) {
+
+    .order-summary {
+        margin-top: 0;
+    }
+    
+    .boton-checkout {
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+}

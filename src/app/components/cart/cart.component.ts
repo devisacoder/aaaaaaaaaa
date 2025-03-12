@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/serviceCart/cart.service';
+import { OrderSummaryComponent } from "../order-summary/order-summary.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
+  imports: [OrderSummaryComponent],
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
@@ -25,13 +27,6 @@ export class CartComponent implements OnInit {
 
   clearCart() {
     this.cartService.clearCart();
-  }
-  get totalProducts(): number {
-    return this.cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  }
-  
-  get totalPrice(): number {
-    return this.cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   }
   
   incrementItem(productId: number) {

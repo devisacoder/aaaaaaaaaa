@@ -73,4 +73,9 @@ export class CartService {
     );
   }
   
+  resetCart() {
+    this.cart = [];
+    this.cartSubject.next(this.cart);
+    this.cartCountSubject.next(0);
+  }
 }

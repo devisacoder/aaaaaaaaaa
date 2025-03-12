@@ -1,35 +1,25 @@
 <div class="cart">
-    <div class="container-cart-items">
-        <ul>
-          <ul>
-            @for (item of cartItems; track item.product.id) {
-              <li class="cart-item">
-                <img [src]="item.product.images?.[0]" [alt]="item.product.title" />
-                <div class="item-details">
-                    <p class="item-title">{{ item.product.title }}</p>
-                    <p class="item-quantity">
-                      <button class="quantity-btn" (click)="decrementItem(item.product.id)">−</button>
-                      {{ item.quantity }}
-                      <button class="quantity-btn" (click)="incrementItem(item.product.id)">+</button>
-                    </p>
-                    <p class="item-price">Precio unitario: ${{ item.product.price }}</p>
-                    <p class="item-total">Total: ${{ item.product.price * item.quantity }}</p>
-                </div>
-                <button class="remove-item responsive-remove" (click)="removeFromCart(item.product.id)">x</button>
-              </li>
-            }
-          </ul>
-          
-        </ul>
-      
-        <div class="order-summary">
-            <h3>Order summary</h3>
-            <p>Total products: <span>{{totalProducts}}</span></p>
-            <p>Total Price: <span>${{ totalPrice }}</span></p>
-            <div class="container-button-checkout">
-              <button class="boton-checkout">Checkout</button>
-            </div>
-        </div>
+  <div class="container-cart-items">
+    <ul class="cart-item'list">
+      @for (item of cartItems; track item.product.id) {
+        <li class="cart-item">
+          <img [src]="item.product.images?.[0]" [alt]="item.product.title" />
+          <div class="item-details">
+              <p class="item-title">{{ item.product.title }}</p>
+              <p class="item-quantity">
+                <button class="quantity-btn" (click)="decrementItem(item.product.id)">−</button>
+                {{ item.quantity }}
+                <button class="quantity-btn" (click)="incrementItem(item.product.id)">+</button>
+              </p>
+              <p class="item-price">Precio unitario: ${{ item.product.price }}</p>
+              <p class="item-total">Total: ${{ item.product.price * item.quantity }}</p>
+          </div>
+          <button class="remove-item responsive-remove" (click)="removeFromCart(item.product.id)">x</button>
+        </li>
+      }
+    </ul>
+    <div class="order-summary-container">
+      <app-order-summary></app-order-summary>
     </div>
   </div>
-  
+</div>

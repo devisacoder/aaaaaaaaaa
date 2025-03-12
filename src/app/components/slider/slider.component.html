@@ -1,4 +1,4 @@
-<div class="slider-container">
+<section class="slider-container">
     <div class="slides" [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'" [class.transition]="isTransitioning">
       @for (image of images; track $index) {
         <img [src]="image" class="slide">
@@ -13,5 +13,5 @@
         <button (click)="goToSlide($index)" [class.active]="$index === currentIndex - 1"></button>
       }
     </div>
-  </div>
+</section>
   

@@ -1,27 +1,23 @@
 <div class="container" *ngIf="product">
   <div class="containerProduct">
-    <div>
-      <img
-        loading="lazy"
-        class="imageProduct"
-        [src]="product.images[0]"
-        [alt]="product.title"
-      />
-    </div>
+    <img
+      loading="lazy"
+      class="imageProduct"
+      [src]="product.images[0]"
+      [alt]="product.title"
+    />
+    
     <div class="containerInfo">
-      <div>
-        <h3 class="nameProduct">{{ product.title }}</h3>
-        <div class="containerPrice">
-          <p class="price">Price: ${{ product.price }}</p>
-        </div>
-      </div>
+      <h3 class="nameProduct">{{ product.title }}</h3>
+      <p class="price">${{ product.price }}</p>
       <p class="descriptionProduct">{{ product.description }}</p>
-      <div class="buttonWrapper">
+      
+      <div class="button-group">
         <button class="buttonProduct" (click)="addToCart()">Agregar al carrito</button>
-        <div *ngIf="product && productCount > 0" class="cart-counter">
+        <span *ngIf="productCount > 0" class="cart-counter">
           {{ productCount }}
-        </div>
-      </div>    
+        </span>
+      </div>
     </div>
   </div>
 </div>

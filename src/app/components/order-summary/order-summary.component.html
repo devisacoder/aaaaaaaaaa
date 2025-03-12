@@ -1,0 +1,40 @@
+<section class="order-summary">
+  <h3>Order summary</h3>
+
+  <button class="payment-method-toggle" (click)="togglePayment()">
+    <span>Método de pago</span>
+    <span class="arrow" [class.open]="showPayment">▼</span>
+  </button>
+
+  <p *ngIf="successMessageFromCard" class="success-message">{{ successMessageFromCard }}</p>
+
+  <p>Total products: <span>{{ totalProducts }}</span></p>
+  <p>Total Price: <span>${{ totalPrice }}</span></p>
+
+  <div *ngIf="showPayment" class="payment-modal-wrapper">
+    <div class="modal-background" (click)="togglePayment()"></div>
+    <div class="modal-content">
+      <app-information-before-payment
+        (cardAdded)="handleCardAdded($event)"
+        (closeModal)="togglePayment()"
+      ></app-information-before-payment>
+    </div>
+  </div>
+
+  <div class="container-button-checkout">
+    <button class="boton-checkout" (click)="onCheckout()">Checkout</button>
+  </div>
+</section>
+
+<app-insufficient-funds-modal
+  *ngIf="showInsufficientFundsModal" 
+  (closeModal)="closeModal()">
+</app-insufficient-funds-modal>
+
+<app-payment-success-modal
+  *ngIf="showSuccessModal"
+  [successMessage]="successMessageFromCard"
+  [cardInfo]="cardInfo"
+  (close)="closeModal()">
+</app-payment-success-modal>
+
