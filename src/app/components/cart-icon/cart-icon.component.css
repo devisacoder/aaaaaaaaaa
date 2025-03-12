@@ -4,16 +4,16 @@
 }
 
 .image-cart {
-    width: 5dvh;
+    width: 8dvh;
 }
 
 .cart-badge {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: #36ac84;
+    top: 0px;
+    right: 0px;
+    background-color: #04acab;
     color: white;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     border-radius: 50%;
     width: 20px;
@@ -21,4 +21,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+@media (max-width: 900px) {
+    .image-cart{
+        width: 10dvh;
+    }
 }

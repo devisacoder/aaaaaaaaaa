@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 70rem;
-  aspect-ratio: 16 / 6; 
+  aspect-ratio: 10 / 3; 
   overflow: hidden;
   border-radius: 8px;
 }

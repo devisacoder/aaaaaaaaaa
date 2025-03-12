@@ -17,6 +17,9 @@
     height: auto;
     font-size: 1rem; 
 }
+.input-search:focus{
+    outline: none
+}
 .button-input {
     height: 28px;
     background-color: transparent;

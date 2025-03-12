@@ -7,5 +7,9 @@ export const routes: Routes = [
   { 
     path: 'cart', 
     loadComponent: () => import('./components/cart/cart.component').then(m => m.CartComponent) // 🚀 Cargar dinámicamente el CartComponent
+  },
+  {
+    path: 'products/:id',
+    loadComponent: () => import('./components/card-product/card-product.component').then(m => m.CardProductComponent)
   }
 ];
