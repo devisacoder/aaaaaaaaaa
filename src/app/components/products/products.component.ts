@@ -4,13 +4,14 @@ import { CartService } from '../../services/serviceCart/cart.service';
 import { SearchService } from '../../services/serviceSearch/search.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, RouterModule]
 
 })
 export class ProductsComponent implements OnInit {

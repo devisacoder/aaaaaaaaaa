@@ -1,1 +1,30 @@
-<p>card-product works!</p>
+<div class="container" *ngIf="product">
+    <div class="containerProduct">
+      <div>
+        <img
+          loading="lazy"
+          class="imageProduct"
+          [src]="product.images[0]"
+          [alt]="product.title"
+        />
+      </div>
+      <div class="containerInfo">
+        <div>
+          <h3 class="nameProduct">{{ product.title }}</h3>
+          <div class="containerPrice">
+            <p class="price">Price: ${{ product.price }}</p>
+          </div>
+        </div>
+        <p class="descriptionProduct">{{ product.description }}</p>
+        
+        <div class="buttonWrapper">
+            <button class="buttonProduct" (click)="addToCart()">Agregar al carrito</button>
+            <div *ngIf="product && productCount > 0" class="cart-counter">
+              {{ productCount }}
+            </div>
+          </div>
+          
+    </div>
+    </div>
+  </div>
+  

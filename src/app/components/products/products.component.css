@@ -39,6 +39,10 @@
     position: relative;
     display: flex;
     justify-content: center;
+    text-decoration: none; 
+    color: inherit; 
+    cursor: pointer;
+    outline: none; 
 }
 
 .image-add-cart {

@@ -1,6 +1,6 @@
 
 <div class="products-container">
-  <div *ngFor="let product of filteredProducts; trackBy: trackById" class="product-wrapper">
+  <a [routerLink]="['/products', product.id]" *ngFor="let product of filteredProducts; trackBy: trackById" class="product-wrapper">
     <img
       class="image-add-cart"
       src="/assets/add-cart.svg"
@@ -16,5 +16,5 @@
       <h3>{{ product.title }}</h3>
       <span class="price">${{ product.price }}</span>
     </div>
-  </div>
+  </a>
 </div>
