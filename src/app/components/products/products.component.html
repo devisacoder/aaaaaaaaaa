@@ -1,5 +1,5 @@
 
-<div class="products-container">
+<section class="products-container">
   <a [routerLink]="['/products', product.id]" *ngFor="let product of filteredProducts; trackBy: trackById" class="product-wrapper">
     <img
     class="image-add-cart"
@@ -18,4 +18,4 @@
       <span class="price">${{ product.price }}</span>
     </div>
   </a>
-</div>
+</section>

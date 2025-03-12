@@ -1,0 +1,10 @@
+<section class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Pago Exitoso</h3>
+      <p>{{ successMessage }}</p>
+      <p><strong>Tarjeta:</strong> {{ cardInfo.cardNumber }}</p>
+      <p><strong>Nombre:</strong> {{ cardInfo.name }}</p>
+      <button (click)="closeModal()">Cerrar</button>
+    </div>
+  </section>
+  

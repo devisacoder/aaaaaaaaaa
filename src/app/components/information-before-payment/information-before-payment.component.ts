@@ -1,5 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { PaymentService } from '../../services/payment/payment.service'; // Importa el servicio
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -7,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './information-before-payment.component.html',
-  styleUrl: './information-before-payment.component.css'
+  styleUrl: './information-before-payment.component.css',
 })
 export class InformationBeforePaymentComponent {
   name = '';
@@ -18,7 +19,9 @@ export class InformationBeforePaymentComponent {
   successMessage = '';
 
   @Output() cardAdded = new EventEmitter<string>();
-  @Output() closeModal = new EventEmitter<void>(); 
+  @Output() closeModal = new EventEmitter<void>();
+
+  constructor(private paymentService: PaymentService) {} 
 
   formatCardNumber(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -32,11 +35,11 @@ export class InformationBeforePaymentComponent {
     const input = event.target as HTMLInputElement;
     let value = input.value.replace(/\D/g, '');
     value = value.substring(0, 6);
-  
+
     if (value.length > 4) {
       value = value.substring(0, 4) + '-' + value.substring(4);
     }
-  
+
     input.value = value;
     this.expiry = input.value;
   }
@@ -56,9 +59,9 @@ export class InformationBeforePaymentComponent {
 
   onFinish(): void {
     const isCardNumberValid = this.cardNumber.replace(/\s/g, '').length === 16;
-const isExpiryValid = /^\d{4}-\d{2}$/.test(this.expiry);
+    const isExpiryValid = /^\d{4}-\d{2}$/.test(this.expiry);
     const isCVVValid = this.cvv.length >= 3 && this.cvv.length <= 4;
-
+  
     if (!this.name || !isCardNumberValid || !isExpiryValid || !isCVVValid) {
       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
       return;
@@ -66,21 +69,18 @@ const isExpiryValid = /^\d{4}-\d{2}$/.test(this.expiry);
   
     this.errorMessage = '';
   
-    const paymentData = {
-      name: this.name,
-      cardNumber: this.cardNumber,
-      expiry: this.expiry,
-      cvv: this.cvv,
+    const cardBalance = 1000; 
+    const cardInfo = { 
+      cardNumber: this.cardNumber, 
+      name: this.maskName(this.name), 
+      balance: cardBalance, 
     };
   
-    localStorage.setItem('paymentData', JSON.stringify(paymentData));
+    localStorage.setItem('savedCard', JSON.stringify(cardInfo));
   
-    const firstFourDigits = this.cardNumber.slice(0, 6);
-    const maskedCard = `${firstFourDigits} **** **** ****`;
-    const maskedName = this.maskName(this.name);
-    const successMessage = `Tarjeta agregada: ${maskedCard} - ${maskedName}`;
-  
-    this.cardAdded.emit(successMessage);
-    this.closeModal.emit() 
+    this.successMessage = `Tarjeta guardada: ${this.cardNumber.slice(0, 4)} **** **** **** - ${this.maskName(this.name)}`;
+    this.cardAdded.emit(this.successMessage);
+    this.closeModal.emit();
   }
+  
 }
