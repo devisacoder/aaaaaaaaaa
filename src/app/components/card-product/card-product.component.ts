@@ -28,7 +28,6 @@ export class CardProductComponent {
       this.updateProductCount();
     });
 
-    // Escuchar los cambios en el carrito
     this.cartService.getCart().subscribe(() => {
       this.updateProductCount();
     });
