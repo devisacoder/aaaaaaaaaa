@@ -4,7 +4,7 @@ import { CartService } from '../../services/serviceCart/cart.service';
 import { PaymentService } from '../../services/payment/payment.service';
 import { PaymentSuccessModalComponent } from '../payment-success-modal/payment-success-modal.component';
 import { InformationBeforePaymentComponent } from "../information-before-payment/information-before-payment.component";
-import { InsufficientFundsModalComponent } from '../insufficient-funds-modal/insufficient-funds-modal.component'; // Modal para fondos insuficientes
+import { InsufficientFundsModalComponent } from '../insufficient-funds-modal/insufficient-funds-modal.component';
 
 @Component({
   selector: 'app-order-summary',
@@ -14,10 +14,12 @@ import { InsufficientFundsModalComponent } from '../insufficient-funds-modal/ins
 })
 export class OrderSummaryComponent implements OnInit {
   cartItems: any[] = [];
-  successMessageFromCard = ''; 
+  cardBalance: number = 0;
+  showSuccessModal: boolean = false;
+  showInsufficientFundsModal: boolean = false;
   showPayment = false;
-  showSuccessModal = false;
-  showInsufficientFundsModal = false;
+  successMessageFromCard: string = '';
+  showFailureModal: boolean = false;
   cardInfo = { cardNumber: '', name: '' };
 
   constructor(
@@ -46,33 +48,45 @@ export class OrderSummaryComponent implements OnInit {
   handleCardAdded(message: string): void {
     this.successMessageFromCard = message;
   }
+  async onCheckout(): Promise<void> {
+    try {
+      const savedCard = JSON.parse(localStorage.getItem('savedCard') || '{}');
+      
+      if (!savedCard.cardNumber) {
+        this.successMessageFromCard = 'No hay tarjeta guardada. Por favor, agrega una tarjeta primero.';
+        return;
+      }
   
-  onCheckout(): void {
-    const savedCard = JSON.parse(localStorage.getItem('savedCard') || '{}');
-    
-    if (!savedCard.cardNumber) {
-      this.successMessageFromCard = 'No hay tarjeta guardada. Por favor, agrega una tarjeta primero.';
-      return;
-    }
+      const totalAmount = this.totalPrice;
+      const savedCardInfo = savedCard.cardNumber.replace(/\s/g, '');
+      
+      const cardBalance = this.paymentService.getCardBalance();
+      
+      if (cardBalance <= 0) {
+        this.successMessageFromCard = 'Fondos insuficientes. No se puede completar la compra.';
+        this.showInsufficientFundsModal = true;
+        return;  
+      }
   
-    const totalAmount = this.totalPrice;
-    const savedCardInfo = savedCard.cardNumber.replace(/\s/g, '');
-    
-    const cardBalance = 1212; // Suponiendo que esta es la lógica para fondos
+      if (cardBalance < totalAmount) {
+        this.successMessageFromCard = 'Fondos insuficientes. No se puede completar la compra.';
+        this.showInsufficientFundsModal = true;
+        return;
+      }
   
-    if (cardBalance < totalAmount) {
-      this.showInsufficientFundsModal = true;
-      return;  
-    }
+      const paymentData = {
+        cardNumber: savedCardInfo,
+        amount: totalAmount,
+        currency: 'USD',
+      };
   
-    const paymentData = {
-      cardNumber: savedCardInfo,
-      amount: totalAmount,
-      currency: 'USD',
-    };
-  
-    this.paymentService.processPayment(paymentData).subscribe(
-      (response) => {
+      const response = await this.paymentService.processPayment(paymentData).toPromise();
+      
+      if (response.status === 'REJECTED') {
+        if (response.amount > this.cardBalance) {
+          this.showInsufficientFundsModal = true;
+        }
+      } else {
         this.successMessageFromCard = 'Pago exitoso!';
         this.cardInfo = {
           cardNumber: savedCardInfo.slice(0, 4) + ' **** **** ****',
@@ -80,23 +94,16 @@ export class OrderSummaryComponent implements OnInit {
         };
         this.showSuccessModal = true;
         localStorage.removeItem('savedCard');
-        
-        // Limpiar el carrito después del pago exitoso
         this.cartService.clearCart();
-      },
-      (error) => {
-        if (error === 'Fondos insuficientes') {
-          this.successMessageFromCard = 'Fondos insuficientes. No se puede completar la compra.';
-          this.showInsufficientFundsModal = true;
-        } else {
-          this.successMessageFromCard = 'Hubo un error al procesar el pago. Intenta de nuevo.';
-        }
       }
-    );
+    } catch (error) {
+      console.error('Error en el proceso de pago:', error);
+      this.successMessageFromCard = 'Hubo un error al procesar el pago. Intenta de nuevo.';
+      this.showFailureModal = true;
+    }
   }
   
-  
-  
+    
   closeModal(): void {
     this.showSuccessModal = false;
     this.showInsufficientFundsModal = false;

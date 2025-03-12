@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-  private cart: any[] = [];
-  private cartSubject = new BehaviorSubject<any[]>([]);
-  private cartCountSubject = new BehaviorSubject<number>(0);
+  private cart: any[] = this.loadCartFromSession();
+  private cartSubject = new BehaviorSubject<any[]>(this.cart);
+  private cartCountSubject = new BehaviorSubject<number>(this.cart.reduce((sum, item) => sum + item.quantity, 0));
 
   cart$ = this.cartSubject.asObservable();
   cartCount$ = this.cartCountSubject.asObservable(); 
@@ -19,10 +19,7 @@ export class CartService {
     } else {
       this.cart.push({ product: product, quantity: 1 });
     }
-    this.cartSubject.next([...this.cart]);
-    this.cartCountSubject.next(
-      this.cart.reduce((sum, item) => sum + item.quantity, 0)
-    );
+    this.updateCart();
   }
 
   getCart() {
@@ -31,21 +28,19 @@ export class CartService {
 
   clearCart() {
     this.cart = [];
-    this.cartSubject.next(this.cart);
-    this.cartCountSubject.next(0); 
+    this.updateCart();
   }
 
   removeProduct(productId: number) {
     this.cart = this.cart.filter(item => item.product.id !== productId);
-    this.cartSubject.next(this.cart);
-    this.cartCountSubject.next(this.cart.length);
+    this.updateCart();
   }
 
   incrementQuantity(productId: number) {
     const item = this.cart.find(item => item.product.id === productId);
     if (item) {
       item.quantity++;
-      this._updateCart();
+      this.updateCart();
     }
   }
   
@@ -56,7 +51,7 @@ export class CartService {
       if (item.quantity <= 0) {
         this.removeProduct(productId);
       } else {
-        this._updateCart();
+        this.updateCart();
       }
     }
   }
@@ -66,16 +61,18 @@ export class CartService {
     return item ? item.quantity : 0;
   }
   
-  private _updateCart() {
+  private updateCart() {
     this.cartSubject.next([...this.cart]);
-    this.cartCountSubject.next(
-      this.cart.reduce((sum, item) => sum + item.quantity, 0)
-    );
+    this.cartCountSubject.next(this.cart.reduce((sum, item) => sum + item.quantity, 0));
+    this.saveCartToSession();
   }
   
-  resetCart() {
-    this.cart = [];
-    this.cartSubject.next(this.cart);
-    this.cartCountSubject.next(0);
+  private saveCartToSession() {
+    sessionStorage.setItem('cart', JSON.stringify(this.cart));
+  }
+
+  private loadCartFromSession() {
+    const savedCart = sessionStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
   }
 }
