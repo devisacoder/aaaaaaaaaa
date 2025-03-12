@@ -46,6 +46,7 @@ export class OrderSummaryComponent implements OnInit {
   handleCardAdded(message: string): void {
     this.successMessageFromCard = message;
   }
+  
   onCheckout(): void {
     const savedCard = JSON.parse(localStorage.getItem('savedCard') || '{}');
     
@@ -57,7 +58,7 @@ export class OrderSummaryComponent implements OnInit {
     const totalAmount = this.totalPrice;
     const savedCardInfo = savedCard.cardNumber.replace(/\s/g, '');
     
-    const cardBalance = 1212; 
+    const cardBalance = 1212; // Suponiendo que esta es la lógica para fondos
   
     if (cardBalance < totalAmount) {
       this.showInsufficientFundsModal = true;
@@ -79,6 +80,9 @@ export class OrderSummaryComponent implements OnInit {
         };
         this.showSuccessModal = true;
         localStorage.removeItem('savedCard');
+        
+        // Limpiar el carrito después del pago exitoso
+        this.cartService.clearCart();
       },
       (error) => {
         if (error === 'Fondos insuficientes') {
@@ -90,6 +94,7 @@ export class OrderSummaryComponent implements OnInit {
       }
     );
   }
+  
   
   
   closeModal(): void {
