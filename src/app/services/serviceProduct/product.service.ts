@@ -6,14 +6,14 @@ import { BehaviorSubject, filter, map, Observable, switchMap, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = '[GET] https://api.escuelajs.co/api/v1/products';
+  private apiUrl = 'https://api.escuelajs.co/api/v1/products';
   private productsSubject = new BehaviorSubject<any[]>([]);
   products$ = this.productsSubject.asObservable()
 
   constructor(private http: HttpClient) {}
 
   fetchProducts(): Observable<any> {
-    return this.http.get<any[]>('https://api.escuelajs.co/api/v1/products').pipe(
+    return this.http.get<any[]>(this.apiUrl).pipe(
       tap(products => {
         this.productsSubject.next(products); 
       })

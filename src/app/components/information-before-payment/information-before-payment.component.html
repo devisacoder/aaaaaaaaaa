@@ -1,0 +1,46 @@
+
+<section class="modal-payment">
+  <h3>Payment</h3>
+
+  <input
+    type="text"
+    name="name"
+    [(ngModel)]="name"
+    placeholder="Nombre y apellido"
+  />
+
+  <input
+    type="text"
+    maxlength="19"
+    placeholder="💳 Card Number"
+    (input)="formatCardNumber($event)"
+    [ngModel]="cardNumber"
+    (ngModelChange)="cardNumber = $event"
+  />
+
+  <input
+    type="text"
+    maxlength="7"
+    placeholder="YY/MM"
+    (input)="formatExpiryDate($event)"
+    [ngModel]="expiry"
+    (ngModelChange)="expiry = $event"
+  />
+
+  <input
+    type="text"
+    maxlength="4"
+    placeholder="CVV"
+    (input)="validateCVV($event)"
+    [ngModel]="cvv"
+    (ngModelChange)="cvv = $event"
+  />
+
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+
+  <div class="container-button-finish">
+    <button class="boton-finish" (click)="onFinish()">Finish</button>
+  </div>
+</section>
