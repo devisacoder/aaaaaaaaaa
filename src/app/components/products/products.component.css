@@ -1,9 +1,9 @@
 .products-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-    max-width: 100%;
+    grid-template-columns: repeat(5, 1fr); 
+    max-width: 70%;
     margin: 4rem auto;
-    gap: 50px;
+    gap: 20px;
     justify-content: center;
 }
 
@@ -43,9 +43,9 @@
 
 .image-add-cart {
     position: absolute;
-    right: 0px;
     background-color: #f4efca;
     border-radius: 50%;
+    right: -8px;;
     width: 40px;
     height: 40px;
     padding: 5px;
@@ -55,7 +55,24 @@
 .image-add-cart:hover {
     transform: scale(1.1);
 }
-
+.cart-counter {
+    position: absolute;
+    right: -5px;
+    top: -10px;
+    background-color: #04acab;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transform: translate(50%, 50%);
+  }
+  
 @media (max-width: 1024px) {
     .products-container {
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));

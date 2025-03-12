@@ -1,18 +1,25 @@
 <div class="cart">
     <div class="container-cart-items">
         <ul>
-          @for (item of cartItems; track item.id) {
-            <li class="cart-item">
-              <img [src]="item.images[0]" [alt]="item.title" />
-      
-              <div class="item-details">
-                <p class="item-title">{{ item.title }}</p>
-                <p class="item-price">${{ item.price }}</p>
-              </div>
-      
-        <button class="remove-item responsive-remove" (click)="removeFromCart(item.id)">x</button>
-            </li>
-          }
+          <ul>
+            @for (item of cartItems; track item.product.id) {
+              <li class="cart-item">
+                <img [src]="item.product.images?.[0]" [alt]="item.product.title" />
+                <div class="item-details">
+                    <p class="item-title">{{ item.product.title }}</p>
+                    <p class="item-quantity">
+                      <button class="quantity-btn" (click)="decrementItem(item.product.id)">−</button>
+                      {{ item.quantity }}
+                      <button class="quantity-btn" (click)="incrementItem(item.product.id)">+</button>
+                    </p>
+                    <p class="item-price">Precio unitario: ${{ item.product.price }}</p>
+                    <p class="item-total">Total: ${{ item.product.price * item.quantity }}</p>
+                </div>
+                <button class="remove-item responsive-remove" (click)="removeFromCart(item.product.id)">x</button>
+              </li>
+            }
+          </ul>
+          
         </ul>
       
         <div class="order-summary">

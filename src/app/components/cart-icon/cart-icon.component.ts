@@ -11,9 +11,9 @@ import { CartService } from '../../services/serviceCart/cart.service';
   styleUrl: './cart-icon.component.css'
 })
 export class CartIconComponent {
-  cartCount$; // 🔹 Declaramos la variable sin inicializarla aquí
+  cartCount$; 
 
   constructor(private cartService: CartService) {
-    this.cartCount$ = this.cartService.cartCount$; // 🔹 Ahora se inicializa correctamente en el constructor
+    this.cartCount$ = this.cartService.cartCount$; 
   }
 }

@@ -23,13 +23,6 @@
     color: #04acab;
 }
 
-.image-cart {
-    width: 10vw;
-    max-width: 3rem;
-    min-width: 1rem; 
-    height: auto;
-    cursor: pointer;
-}
 
 @media (max-width: 500px) {
     .container-header h1 {

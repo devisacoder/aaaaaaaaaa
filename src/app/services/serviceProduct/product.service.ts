@@ -20,7 +20,6 @@ export class ProductService {
     );
   }
   
-
   getProducts(): Observable<any[]> {
     return this.products$;
   }
