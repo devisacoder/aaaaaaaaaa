@@ -1,23 +1,32 @@
-<div class="container" *ngIf="product">
-  <div class="containerProduct">
-    <img
-      loading="lazy"
-      class="imageProduct"
-      [src]="product.images[0]"
-      [alt]="product.title"
-    />
-    
-    <div class="containerInfo">
-      <h3 class="nameProduct">{{ product.title }}</h3>
-      <p class="price">${{ product.price }}</p>
-      <p class="descriptionProduct">{{ product.description }}</p>
-      
-      <div class="button-group">
-        <button class="buttonProduct" (click)="addToCart()">Agregar al carrito</button>
-        <span *ngIf="productCount > 0" class="cart-counter">
+<section class="container" *ngIf="product" aria-labelledby="product-title">
+  <article class="containerProduct">
+    <figure>
+      <img
+        loading="lazy"
+        class="imageProduct"
+        [src]="product.images[0]"
+        [alt]="product.title"
+        aria-describedby="product-description"
+      />
+    </figure>
+    <section class="containerInfo">
+      <header>
+        <h3 id="product-title" class="nameProduct">{{ product.title }}</h3>
+        <p class="price" aria-live="polite">Price: ${{ product.price }}</p>
+      </header>
+      <p id="product-description" class="descriptionProduct">{{ product.description }}</p>
+      <footer class="buttonWrapper">
+        <button
+          class="buttonProduct"
+          (click)="addToCart()"
+          aria-label="Agregar al carrito"
+        >
+          Agregar al carrito
+        </button>
+        <div *ngIf="product && productCount > 0" class="cart-counter" aria-live="polite">
           {{ productCount }}
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
+        </div>
+      </footer>    
+    </section>
+  </article>
+</section>

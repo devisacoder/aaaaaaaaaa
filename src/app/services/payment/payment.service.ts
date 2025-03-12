@@ -10,15 +10,32 @@ export class PaymentService {
 
   constructor(private http: HttpClient) {}
 
-processPayment(paymentData: { cardNumber: string; amount: number; currency: string }): Observable<any> {
-  const cardBalance = 1212; 
-
-  if (paymentData.amount > cardBalance) {
-    return new Observable(observer => {
-      observer.error('Fondos insuficientes');
-    });
+  getCardBalance(): number {
+    const savedCard = JSON.parse(localStorage.getItem('savedCard') || '{}');
+    
+    const balance = parseFloat(savedCard.balance || '0');
+    
+    console.log('Saldo de la tarjeta:', balance); 
+    
+    return balance;
+  }
+  
+  setCardBalance(amount: number): void {
+    localStorage.setItem('cardBalance', amount.toString());
   }
 
-  return this.http.post(this.paymentUrl, paymentData);
-}
+  processPayment(paymentData: { cardNumber: string; amount: number; currency: string }): Observable<any> {
+    const cardBalance = this.getCardBalance();
+
+    if (paymentData.amount > cardBalance) {
+      return new Observable(observer => {
+        observer.error('Fondos insuficientes');
+      });
+    }
+
+    const updatedBalance = cardBalance - paymentData.amount;
+    this.setCardBalance(updatedBalance);
+
+    return this.http.post(this.paymentUrl, paymentData);
+  }
 }
