@@ -1,0 +1,28 @@
+.container-header{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: "Kufam", sans-serif;
+    border-bottom: 0.1px solid #f4efca  ;
+    gap: 10px;
+}
+.container-header h1{
+    font-size: 2rem;
+    color: #fbb607 ;
+    cursor: pointer;
+}
+.second-title-part{
+    color: #04acab  ;
+}
+.image-cart {
+    width: 10vw;
+    max-width: 3rem;
+    min-width: 1rem; 
+    height: auto;
+    cursor: pointer;
+}
+@media (max-width: 500px){
+    .container-header h1{
+        font-size: 1.2rem;
+    }
+}

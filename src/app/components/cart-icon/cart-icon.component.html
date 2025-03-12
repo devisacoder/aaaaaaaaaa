@@ -1,0 +1,4 @@
+<a [routerLink]="['/cart']" class="cart-container">
+  <img class="image-cart" src="/assets/cart.svg" alt="icono para el carrito">
+  <span *ngIf="(cartCount$ | async) as count" [hidden]="count <= 0" class="cart-badge">{{ count }}</span>
+</a>

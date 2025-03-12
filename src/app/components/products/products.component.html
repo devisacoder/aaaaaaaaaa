@@ -1,0 +1,15 @@
+<div class="products-container">
+    @for (product of products; track product.id) {
+        <div class="product-wrapper">
+            <img class="image-add-cart" src="/assets/add-cart.svg" 
+                alt="icon add cart" 
+                (click)="addToCart(product)"
+            >            
+            <div class="product-card">
+                <img [src]="product.images[0]" alt="{{ product.name }}">
+                <h3>{{ product.title }}</h3>
+                <span class="price">${{ product.price }}</span>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,11 @@
+<div class="cart">
+    <h2>Shopping cart</h2>
+    <ul>
+        @for (item of cartItems; track item.id ) {
+            <p>{{ item.title }} - ${{ item.price }}</p>
+            <img [src]="item.images[0]"  [alt]="item.title">
+            <button (click)="removeFromCart(item.id)">🗑️</button>
+        }
+        <button (click)="clearCart()">Vaciar Carrito</button>
+    </ul>
+</div>

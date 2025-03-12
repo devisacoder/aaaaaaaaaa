@@ -1,0 +1,33 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+      <h2 class="text-xl font-bold text-center mb-4">Recargar Tarjeta Credibanco</h2>
+      <form [formGroup]="rechargeForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label class="block text-gray-700">Nombre del Titular</label>
+          <input type="text" formControlName="holderName" class="w-full p-2 border rounded" placeholder="Ej: Juan Pérez" />
+          <small *ngIf="rechargeForm.get('holderName')?.invalid && rechargeForm.get('holderName')?.touched" class="text-red-500">Nombre requerido</small>
+        </div>
+  
+        <div class="mb-4">
+          <label class="block text-gray-700">Número de Tarjeta</label>
+          <input type="text" formControlName="cardNumber" class="w-full p-2 border rounded" placeholder="1234 5678 9101 1121" />
+          <small *ngIf="rechargeForm.get('cardNumber')?.invalid && rechargeForm.get('cardNumber')?.touched" class="text-red-500">Número inválido</small>
+        </div>
+  
+        <div class="mb-4">
+          <label class="block text-gray-700">Tipo de Tarjeta</label>
+          <select formControlName="cardType" class="w-full p-2 border rounded">
+            <option value="">Seleccione un tipo</option>
+            <option value="credito">Crédito</option>
+            <option value="debito">Débito</option>
+          </select>
+          <small *ngIf="rechargeForm.get('cardType')?.invalid && rechargeForm.get('cardType')?.touched" class="text-red-500">Seleccione un tipo</small>
+        </div>
+  
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600" [disabled]="rechargeForm.invalid">
+          Recargar
+        </button>
+      </form>
+    </div>
+  </div>
+  

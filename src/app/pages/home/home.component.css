@@ -1,0 +1,11 @@
+.container-slider{
+    display: flex;
+    padding-top:  10px;
+    flex-direction: column;
+    align-items: center;
+}
+.container-products{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
